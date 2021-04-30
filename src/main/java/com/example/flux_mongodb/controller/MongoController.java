@@ -18,9 +18,11 @@ public class MongoController {
     }
 
     @GetMapping(value = "/fluxstream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-    public Flux<Integer> returnFluxStream(){
-        return Flux.just(1,2,3,4,5)
-                .delayElements(Duration.ofSeconds(2))
-                .log();
+    public Flux<Long> returnFluxStream(){
+        return Flux.interval(Duration.ofSeconds(1));
+
+        //Flux.just(1,2,3,4,5)
+                //.delayElements(Duration.ofSeconds(2))
+                //.log();
     }
 }
