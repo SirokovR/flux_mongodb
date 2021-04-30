@@ -6,16 +6,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @WebFluxTest
@@ -63,6 +65,20 @@ public class MongoControllerTest {
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBodyList(Integer.class)
                 .hasSize(5);
+
+    }
+
+    @Test
+    public  void approach3(){
+        List<Integer> expectedIntegerList = Arrays.asList(1,2,3,4,5);
+
+        EntityExchangeResult<List<Integer>> entityExchangeResult = webTestClient.get().uri("/flux")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(Integer.class)
+                .returnResult();
+        assertEquals(expectedIntegerList, entityExchangeResult.getResponseBody());
 
     }
 
