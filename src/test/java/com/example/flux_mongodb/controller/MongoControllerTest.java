@@ -82,6 +82,22 @@ public class MongoControllerTest {
 
     }
 
+    @Test
+    public void approach4(){
+
+        List<Integer> expectedIntegerList = Arrays.asList(1,2,3,4);
+
+        webTestClient
+                .get().uri("/flux")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(Integer.class)
+                .consumeWith((response      ) -> assertEquals(expectedIntegerList, response.getResponseBody()));
+
+    }
+
+
 
 
 }
