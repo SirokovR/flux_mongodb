@@ -37,7 +37,7 @@ public class MongoControllerTest {
     public void flux_approach1(){
 
         Flux<Integer> integerFlux = webTestClient.get().uri("/flux")
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .returnResult(Integer.class)
@@ -57,25 +57,15 @@ public class MongoControllerTest {
     public void flux_approach2(){
 
         webTestClient.get().uri("/flux")
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBodyList(Integer.class)
                 .hasSize(5);
 
     }
 
-    @Test
-    public void monoTest(){
-
-        Mono<String> stringMono = Mono.just("Spring");
-
-        StepVerifier.create(stringMono.log())
-                .expectNext("Spring")
-                .verifyComplete();
-
-    }
 
 
 }
