@@ -27,13 +27,13 @@ public class MongoControllerTest {
     @Autowired
     WebTestClient webTestClient;
 
-    @BeforeEach
+/*    @BeforeEach
     public void setUp() {
         webTestClient = webTestClient
                 .mutate()
                 .responseTimeout(Duration.ofMillis(30000))
                 .build();
-    }
+    }*/
 
     @Test
     public void flux_approach1(){
@@ -85,7 +85,7 @@ public class MongoControllerTest {
     @Test
     public void approach4(){
 
-        List<Integer> expectedIntegerList = Arrays.asList(1,2,3,4);
+        List<Integer> expectedIntegerList = Arrays.asList(1,2,3,4,5);
 
         webTestClient
                 .get().uri("/flux")
